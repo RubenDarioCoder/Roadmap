@@ -61,5 +61,27 @@ mapa.set('nombre', 'Ruben Dario'); // reemplaza el valor del elemento
 // Map no aplica ordenacion
 console.log(mapa);
 // Agenda de contactos
+// Importamos el módulo readline de Node.js
+const readline = require('readline');
 
+// Creamos una interfaz para leer entrada y escribir salida
+const rl = readline.createInterface({
+  input: process.stdin,  // Entrada desde la terminal
+  output: process.stdout // Salida hacia la terminal
+});
 
+// Preguntamos al usuario por un número
+rl.question('Introduce un número: ', (numero) => {
+  // Convertimos la entrada a número (porque readline devuelve un string)
+  const num = Number(numero);
+
+  // Verificamos si es un número válido
+  if (isNaN(num)) {
+    console.log('¡Error! Debes introducir un número válido.');
+  } else {
+    console.log(`El resultado de ${num} + 4 es: ${num + 4}`);
+  }
+
+  // Cerramos la interfaz para que el programa termine
+  rl.close();
+});
