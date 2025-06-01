@@ -43,7 +43,7 @@ objeto['email'] = 'dariomacielr@gmail.com'; // añade un nuevoe elemento
 delete objeto.email; // elimina el elemento
 // Actualizacion
 objeto.nombre = 'Ruben Dario'; // reemplaza el valor del elemento
-console.log(objeto);
+//console.log(objeto);
 // Set
 let set = new Set([1, 2, 3, 4]);
 set.add(5); // añade un nuevo valor
@@ -59,29 +59,125 @@ mapa.delete('email'); // elimina el elemento
 // Actualizacion
 mapa.set('nombre', 'Ruben Dario'); // reemplaza el valor del elemento
 // Map no aplica ordenacion
-console.log(mapa);
+//console.log(mapa);
 // Agenda de contactos
-// Importamos el módulo readline de Node.js
+
+let agenda = new Map();
+
 const readline = require('readline');
-
-// Creamos una interfaz para leer entrada y escribir salida
 const rl = readline.createInterface({
-  input: process.stdin,  // Entrada desde la terminal
-  output: process.stdout // Salida hacia la terminal
+  input: process.stdin,
+  output: process.stdout
 });
 
-// Preguntamos al usuario por un número
-rl.question('Introduce un número: ', (numero) => {
-  // Convertimos la entrada a número (porque readline devuelve un string)
-  const num = Number(numero);
+function menu() {
+  console.log("Seleccione una opcion:");
+  console.log("1. Buscar contacto");
+  console.log("2. Insertar contacto");
+  console.log("3. Editar contacto");
+  console.log("4. Eliminar contacto");
+  console.log("5. Salir");
+}
 
-  // Verificamos si es un número válido
-  if (isNaN(num)) {
-    console.log('¡Error! Debes introducir un número válido.');
-  } else {
-    console.log(`El resultado de ${num} + 4 es: ${num + 4}`);
-  }
 
-  // Cerramos la interfaz para que el programa termine
-  rl.close();
-});
+
+
+function buscarContacto() {
+  rl.question('Ingrese el nombre del contacto a buscar: ', (contactoBuscado) => {
+    if (agenda.has(contactoBuscado)) {
+      console.log('Contacto encontrado:', contactoBuscado, 'Telefono:', agenda.get(contactoBuscado));
+    } else {
+      console.log('Contacto no encontrado.');
+    }
+    menu();
+  });
+}
+
+
+function ingresarContacto () {
+  rl.question('Ingrese el nombre del contacto: ', (contactoIngresado) => {
+    rl.question('Ingrese el numero de telefono: ', (telefono) => {
+      if (/^\d{1,11}$/.test(telefono)) {
+        agenda.set(contactoIngresado, telefono);
+        console.log(`Contacto ${contactoIngresado} agregado con exito.`);
+        menu();
+      } else {
+        console.log('Numero de telefono no valido. Debe ser numerico y tener hasta 11 digitos.');
+        ingresarContacto();
+      }
+    });
+  });
+}
+
+function editarContacto() {
+  rl.question('Ingrese el nombre del contacto a editar: ', (contactoEditar) => {
+    if (agenda.has(contactoEditar)) {
+      rl.question('Si quiere editar el nombre, ingrese 1, si quiere editar el telefono, ingrese 2: ', (opcionEdicion) => {
+        switch (opcionEdicion) {
+          case '1':
+            rl.question('Ingrese el nuevo nombre: ', (nuevoNombre) => {
+              let telefono = agenda.get(contactoEditar);
+              agenda.delete(contactoEditar);
+              agenda.set(nuevoNombre, telefono);
+              console.log('Contacto editado exitosamente.');
+              menu();
+            });
+            break;
+          case '2':
+            rl.question('Ingrese el nuevo teléfono: ', (nuevoTelefono) => {
+              agenda.set(contactoEditar, nuevoTelefono);
+              console.log('Teléfono actualizado exitosamente.');
+              menu();
+            });
+            break;
+          default:
+            console.log('Opción no válida.');
+            menu();
+        }
+      });
+    } else {
+      console.log('El contacto no existe.');
+      menu();
+    }
+  });
+}
+
+function eliminarContacto() {
+  rl.question('Ingrese el nombre del contacto a eliminar: ', (contactoEliminar) => {
+    if (agenda.has(contactoEliminar)) {
+      agenda.delete(contactoEliminar);
+      console.log(`Contacto ${contactoEliminar} eliminado con éxito.`);
+    } else {
+      console.log('Contacto no encontrado.');
+    }
+    menu();
+  });
+}
+
+function solicitarOperacion() {
+  menu();
+  rl.question('Ingrese la operacion que desea realizar: ', (opcion) => {
+    switch (opcion) {
+      case '1':
+        buscarContacto();
+        break;
+      case '2':
+        ingresarContacto();
+        break;
+      case '3':
+        editarContacto();
+        break;
+      case '4':
+        eliminarContacto();
+        break;
+      case '5':
+        console.log('Saliendo del programa...');
+        rl.close();
+        break;
+      default:
+        console.log('Opcion no valida. Intente de nuevo.');
+        solicitarOperacion();
+    }
+  });
+}
+solicitarOperacion();

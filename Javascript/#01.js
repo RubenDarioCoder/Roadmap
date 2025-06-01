@@ -56,14 +56,15 @@ asignacion **= 3;
 // Operadores de pertenencia
 
 let estaEn = 4 in [1, 2, 3, 4 ,5]; // el indice 4 está en el array
-let noEstaEn = 6 in [1, 2, 3, 4, 5]; // el indice 6 no está en el array
+let noEstaEn = 5 in [1, 2, 3, 4, 5]; // el indice 6 no está en el array
+
 // Otra opcion de uso en objetos
 let objeto = {nombre: "Dario", edad: 31, apellido: "Maciel"};
 let estaEnObjeto = "nombre" in objeto;
 
 // Operadores de tipo de dato
 
-let tipo = typeof 5; // Sirve para saber el tipo de dato de una variable
+let tipo = typeof 5;
 
 // Estructuras de control
 
@@ -92,7 +93,7 @@ if(condicion > 10) {
 }
 
 // Swich
-condicion = 3
+condicion = 2;
 switch(condicion) {
     case 1:
         console.log("Es 1");
@@ -103,14 +104,8 @@ switch(condicion) {
     case 3:
         console.log("Es 3")
         break;
-    case 4:
-        console.log("Es 4");
-        break;
-    case 5:
-        console.log("Es 5");
-        break;
     default:
-        console.log("Numero del 1 al 5");
+        console.log("Numero del 1 al 3");
         break
 }
 
@@ -121,11 +116,11 @@ for(let i = 0; i <5; i++) {
 }
 // For each
 let array = ['perro', 'gato', 'tigre', 'elefante', 'leon', 'mono']
-array.forEach(numero =>
-    console.log(numero));
+array.forEach(animal =>
+    console.log(animal));
 // For of
-for (let numero of array) {
-    console.log(numero);
+for (let animal of array) {
+    console.log(animal);
 }
 // For in
 for (let valor in objeto) {
@@ -142,3 +137,25 @@ do {
     console.log(contador);
     contador ++;
 } while (contador < 10);
+
+// Excepciones
+try {
+    let resultado = 10 / 0;
+
+}
+catch (error) {
+    console.error("Ha ocurrido un error:", error.message);
+}
+finally {
+    console.log("Bloque finally ejecutado");
+}
+
+// Ejercicio extra
+let numerosPares = [];
+for (let numero = 10; numero <= 55; numero++) {
+    if (numero % 2 === 0 && numero !== 16 && numero % 3 !== 0) {
+        numerosPares.push(numero);
+    }
+}
+
+console.log(numerosPares);

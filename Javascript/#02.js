@@ -67,21 +67,21 @@ function funcionGlobal() {
 }
 funcionGlobal();
 // Ejercicio extra
-function fizzBuzz(fizz, buzz, max) {
+function ejercicio(ruben, dario, max) {
     for (let i = 1; i <= max; i++) {
         
         if (i % 3 === 0 && i % 5 === 0) {
-            console.log(fizz + buzz);
+            console.log(ruben + dario);
         }
         else if (i % 3 === 0) {
-            console.log(fizz);
+            console.log(ruben);
         }
         else if (i % 5 === 0) {
-            console.log(buzz);
+            console.log(dario);
         }
         else {
             console.log(i);
         }
 }   
 }
-fizzBuzz("fizz", "buzz", 100);
+ejercicio("ruben", "dario", 100);
